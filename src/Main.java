@@ -1,19 +1,106 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.io.File;  // Import the File class
+import java.io.FileWriter;
+import java.io.IOException;
 
-abstract class animal {
+abstract class Animal {
     public void sound ( ){} ;
+    final public void nope(){
+        System.out.println("i'm not the concrete method");
+    }
+    public void concrete(){
+        System.out.println("i'm concrete mehtod you can override me as well");
+    };
+
+    protected String name="sameer";
+
 };
-public class Main extends animal {
+interface Anima {
+
+    public void animalSound(); // interface method (does not have a body)
+    public void sleep(); // interface method (does not have a body)
+}
+
+public class Main extends Animal implements Anima  {
+
+    //here even if we don't specifcy the body we'll get no error for the abstract shit
     public void sound (String name){
         System.out.println(STR."Hell i'm \{name}");
+    };
+    //*here if don't implements the body of interfac we get the error this is difference
+    @Override
+    public void animalSound() {
+        System.out.println("I am an animal and I can make a sound.");
     }
+
+    @Override
+    public void sleep() {
+        System.out.println("I am an animal and I am sleeping.");
+    };
+
+    static void myStaticMethod() {
+        System.out.println("Static methods can be called without creating objects");
+    }
+    private String name; // private = restricted access
+
+    // Getter
+    public String getName() {
+        return name;
+    }
+
+    // Setter
+    public void setName(String newName) {
+        this.name = newName;
+    };
+
+    int x;  // Create a class attribute
+
+    // Create a class constructor for the Main class
+    public Main() {
+        x = 5;  // Set the initial value for the class attribute x
+    }
+
+
+
+
     public static void main(String[] args) {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
       Main obj1=new Main();
 
       obj1.sound("sameer");
+      obj1.setName("khzier");
+      obj1.getName();
+        try {
+            File myObj = new File("filename.txt");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        };
+        try {
+            FileWriter myWriter = new FileWriter("filename.txt");
+            myWriter.write("Files in Java might be tricky, but it is fun enough!");
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        obj1.sound();
+        obj1.sleep();
+        obj1.myStaticMethod();
+        System.out.println(obj1.x);
+        Dog myDog = new Dog();  // Create a Dog object
+        myDog.sound();
+        Cat myCat = new Cat();
+        myCat.sound();
+
     };
 
 
@@ -52,3 +139,16 @@ public class Main extends animal {
 
      */
 }
+class Dog extends Animal {
+    @Override
+    public void sound() {
+        System.out.println("The dog says: bow wow");
+    }
+};
+
+class Cat extends Animal {
+    @Override
+    public void sound() {
+        System.out.println("The cat says: meow meow");
+    }
+};
